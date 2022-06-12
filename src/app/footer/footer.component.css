@@ -1,0 +1,7 @@
+.footer {
+  border: 3px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1rem;
+}
