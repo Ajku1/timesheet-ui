@@ -19,3 +19,7 @@ input {
   border-radius: 0;
   padding: 1rem;
 }
+
+.error {
+  color: red;
+}

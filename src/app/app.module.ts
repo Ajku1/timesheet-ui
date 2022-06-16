@@ -12,6 +12,7 @@ import {CommonModule} from '@angular/common';
 import {RegisterComponent} from './register/register.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {FooterComponent} from './shared/footer/footer.component';
+import { TimeEntryComponent } from './time-entries/time-entry/time-entry.component';
 
 export const appStates: Routes = [
   {
@@ -40,7 +41,8 @@ export const appStates: Routes = [
     RegisterComponent,
     HeaderComponent,
     FooterComponent,
-    TimeEntriesComponent
+    TimeEntriesComponent,
+    TimeEntryComponent
   ],
   imports: [
     CommonModule,

@@ -23,4 +23,8 @@
   <div class="register-form__buttons">
     <input class="register-form__buttons--button" type="submit" value="Submit">
   </div>
+
+  <div class="error" *ngIf="error">
+    {{error}}
+  </div>
 </form>

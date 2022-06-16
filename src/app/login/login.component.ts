@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Route} from '../route.enum';
-import {LoginFormControlName} from './models/LoginFormControlName';
+import {LoginFormControlName} from './models/login-form-control-name-enum';
 
 @Component({
   selector: 'app-login',
@@ -19,26 +19,28 @@ export class LoginComponent {
 
   constructor(private readonly httpClient: HttpClient,
               private readonly router: Router) {
-    this.formGroup = new FormGroup<any>({
-      [LoginFormControlName.Username]: new FormControl(null, [Validators.required]),
-      [LoginFormControlName.Password]: new FormControl(null, [Validators.required, Validators.minLength(8)])
+    this.formGroup = new FormGroup({
+      [LoginFormControlName.Username]: new FormControl<string | null>(null, [Validators.required]),
+      [LoginFormControlName.Password]: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)])
     });
   }
 
   login(): void {
-    if (this.formGroup.valid) {
-      this.httpClient.post(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
-        .pipe(take(1))
-        .subscribe({
-          next: () => {
-            this.router.navigate([Route.TimeEntries]);
-          },
-          error: (error: HttpErrorResponse) => {
-            if (error.status === 401) {
-              this.error = 'Wrong username/password!';
-            }
-          }
-        });
+    if (this.formGroup.invalid) {
+      this.error = 'Form input is invalid.';
+      return;
     }
+    this.httpClient.post(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.router.navigate([Route.TimeEntries]);
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.error = 'Wrong username/password!';
+          }
+        }
+      });
   }
 }
