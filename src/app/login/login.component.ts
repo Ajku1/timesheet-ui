@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {environment} from '../../environments/environment';
 import {take} from 'rxjs/operators';
@@ -15,6 +15,7 @@ import {LoginFormControlName} from './models/LoginFormControlName';
 export class LoginComponent {
   readonly loginFormControlName: typeof LoginFormControlName = LoginFormControlName;
   formGroup: FormGroup;
+  error?: string;
 
   constructor(private readonly httpClient: HttpClient,
               private readonly router: Router) {
@@ -22,29 +23,20 @@ export class LoginComponent {
       [LoginFormControlName.Username]: new FormControl(null, [Validators.required]),
       [LoginFormControlName.Password]: new FormControl(null, [Validators.required, Validators.minLength(8)])
     });
-    this.httpClient.get(`${environment.backendUrl}/${Route.Users}`)
-      .subscribe({
-        next: (result) => {
-          console.log(result);
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
   }
 
   login(): void {
-    console.log(this.formGroup.errors);
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
       this.httpClient.post(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
         .pipe(take(1))
         .subscribe({
           next: () => {
-            this.router.navigate([Route.Home]);
+            this.router.navigate([Route.TimeEntries]);
           },
-          error: (error) => {
-            console.log(error);
+          error: (error: HttpErrorResponse) => {
+            if (error.status === 401) {
+              this.error = 'Wrong username/password!';
+            }
           }
         });
     }

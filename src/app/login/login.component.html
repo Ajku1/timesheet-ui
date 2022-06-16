@@ -13,7 +13,7 @@
   <div class="login-form__buttons">
     <input class="login-form__buttons--button" type="submit" (click)="login()">
   </div>
-  <div *ngIf="formGroup.invalid">
-    {{formGroup.errors}}
+  <div class="error" *ngIf="error">
+    {{error}}
   </div>
 </form>

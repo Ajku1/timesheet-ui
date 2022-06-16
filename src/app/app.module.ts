@@ -16,7 +16,7 @@ import {FooterComponent} from './shared/footer/footer.component';
 export const appStates: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: LoginComponent
   },
   {
     path: Route.Login,
