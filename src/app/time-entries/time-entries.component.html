@@ -1,0 +1,24 @@
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Hours</th>
+    <th>Status</th>
+    <th>Type</th>
+    <th>Approve</th>
+    <th>Reject</th>
+  </tr>
+  <tr *ngFor="let timeEntry of timeEntries">
+    <th>{{timeEntry.Date | date}}</th>
+    <th>{{timeEntry.Hours}}</th>
+    <th>{{timeEntry.Status}}</th>
+    <th>{{timeEntry.Type}}</th>
+    <ng-container *ngIf="timeEntry.Status === 'PENDING'">
+      <th>
+        <button (click)="onTimeEntryActionClick(timeEntry.Id, true)">Approve</button>
+      </th>
+      <th>
+        <button (click)="onTimeEntryActionClick(timeEntry.Id, false)">Reject</button>
+      </th>
+    </ng-container>
+  </tr>
+</table>

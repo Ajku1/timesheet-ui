@@ -1,12 +1,12 @@
 <form [formGroup]="formGroup" class="login-form">
   <div class="login-form__element">
     <label for="email">Email:</label>
-    <input [formControlName]="'username'" class="box" type="email" name="email" id="email" placeholder="Enter email">
+    <input [formControlName]="loginFormControlName.Username" class="box" type="email" name="email" id="email" placeholder="Enter email">
   </div>
 
   <div class="login-form__element">
     <label for="password">Password:</label>
-    <input [formControlName]="'password'" class="box" type="password" name="password" id="password"
+    <input [formControlName]="loginFormControlName.Password" class="box" type="password" name="password" id="password"
            placeholder="Enter your password">
   </div>
 

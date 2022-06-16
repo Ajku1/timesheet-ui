@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {Route} from '../route.enum';
+import {Route} from '../../route.enum';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +12,10 @@ export class HeaderComponent {
   constructor(private readonly router: Router) {
   }
 
+
+  onHeaderClick() {
+    this.router.navigate([Route.TimeEntries]);
+  }
 
   onLoginButtonClick() {
     this.router.navigate([Route.Login]);

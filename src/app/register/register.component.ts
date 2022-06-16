@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
 import {take} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-register',

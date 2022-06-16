@@ -6,24 +6,30 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RegisterComponent} from './register/register.component';
-import {HeaderComponent} from './header/header.component';
-import {FooterComponent} from './footer/footer.component';
 import {Route} from './route.enum';
+import {TimeEntriesComponent} from './time-entries/time-entries.component';
+import {CommonModule} from '@angular/common';
+import {RegisterComponent} from './register/register.component';
+import {HeaderComponent} from './shared/header/header.component';
+import {FooterComponent} from './shared/footer/footer.component';
 
 export const appStates: Routes = [
   {
     path: '',
-    component: AppComponent,
+    component: AppComponent
   },
   {
     path: Route.Login,
-    component: LoginComponent,
+    component: LoginComponent
   },
   {
     path: Route.Register,
-    component: RegisterComponent,
+    component: RegisterComponent
   },
+  {
+    path: Route.TimeEntries,
+    component: TimeEntriesComponent
+  }
 ];
 
 
@@ -33,16 +39,18 @@ export const appStates: Routes = [
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    TimeEntriesComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appStates)
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

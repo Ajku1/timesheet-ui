@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Route} from '../route.enum';
+import {LoginFormControlName} from './models/LoginFormControlName';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,24 @@ import {Route} from '../route.enum';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  readonly loginFormControlName: typeof LoginFormControlName = LoginFormControlName;
   formGroup: FormGroup;
 
   constructor(private readonly httpClient: HttpClient,
               private readonly router: Router) {
     this.formGroup = new FormGroup<any>({
-      'username': new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      'password': new FormControl(null, [Validators.required, Validators.minLength(8)])
+      [LoginFormControlName.Username]: new FormControl(null, [Validators.required]),
+      [LoginFormControlName.Password]: new FormControl(null, [Validators.required, Validators.minLength(8)])
     });
+    this.httpClient.get(`${environment.backendUrl}/${Route.Users}`)
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
   }
 
   login(): void {
@@ -28,7 +39,14 @@ export class LoginComponent {
       console.log(this.formGroup.value);
       this.httpClient.post(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
         .pipe(take(1))
-        .subscribe(() => this.router.navigate([Route.Home]));
+        .subscribe({
+          next: () => {
+            this.router.navigate([Route.Home]);
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
     }
   }
 }
