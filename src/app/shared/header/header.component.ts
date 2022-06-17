@@ -17,6 +17,10 @@ export class HeaderComponent {
     this.router.navigate([Route.TimeEntries]);
   }
 
+  onNewTimeEntryButtonClick() {
+    this.router.navigate([Route.TimeEntry]);
+  }
+
   onLoginButtonClick() {
     this.router.navigate([Route.Login]);
   }

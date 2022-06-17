@@ -4,6 +4,7 @@ import {TimeEntry} from './models/time-entry.interface';
 import {environment} from '../../environments/environment';
 import {Route} from '../route.enum';
 import {take} from 'rxjs/operators';
+import {TimeEntryType} from './models/time-entry-type.enum';
 
 @Component({
   selector: 'app-time-entries',
@@ -19,7 +20,7 @@ export class TimeEntriesComponent implements OnInit {
       Date: new Date(),
       Hours: 5,
       Status: 'PENDING',
-      Type: 'WORK'
+      Type: TimeEntryType.Work
     },
     {
       Id: 5,
@@ -28,7 +29,7 @@ export class TimeEntriesComponent implements OnInit {
       Date: new Date(),
       Hours: 5,
       Status: 'PENDING',
-      Type: 'WORK'
+      Type: TimeEntryType.StudyBreak
     },
     {
       Id: 5,
@@ -37,7 +38,7 @@ export class TimeEntriesComponent implements OnInit {
       Date: new Date(),
       Hours: 5,
       Status: 'APPROVED',
-      Type: 'WORK'
+      Type: TimeEntryType.StudyBreak
     },
     {
       Id: 5,
@@ -46,7 +47,7 @@ export class TimeEntriesComponent implements OnInit {
       Date: new Date(),
       Hours: 5,
       Status: 'APPROVED',
-      Type: 'WORK'
+      Type: TimeEntryType.Holiday
     }
   ];
 

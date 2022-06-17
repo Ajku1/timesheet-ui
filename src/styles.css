@@ -11,7 +11,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(90deg, rgba(47, 88, 242, 1) 13%, rgba(255, 0, 221, 1) 76%);
+  background: lightblue;
 }
 
 input {
@@ -23,3 +23,6 @@ input {
 .error {
   color: red;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

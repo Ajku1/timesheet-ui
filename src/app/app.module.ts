@@ -13,6 +13,13 @@ import {RegisterComponent} from './register/register.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {FooterComponent} from './shared/footer/footer.component';
 import { TimeEntryComponent } from './time-entries/time-entry/time-entry.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 export const appStates: Routes = [
   {
@@ -26,6 +33,10 @@ export const appStates: Routes = [
   {
     path: Route.Register,
     component: RegisterComponent
+  },
+  {
+    path: Route.TimeEntry,
+    component: TimeEntryComponent
   },
   {
     path: Route.TimeEntries,
@@ -50,7 +61,14 @@ export const appStates: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appStates)
+    RouterModule.forRoot(appStates),
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   bootstrap: [AppComponent]
 })

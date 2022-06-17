@@ -1,6 +1,27 @@
-<label for="date">Date:</label>
-<input [formControlName]="timeEntryFormControlName.Date" class="box" type="text" name="date" id="date"
-       placeholder="Enter date:">
-<label for="hours">Hours:</label>
-<input [formControlName]="timeEntryFormControlName.Hours" class="box" type="text" name="hours" id="hours"
-       placeholder="Enter hours:">
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input [formControlName]="timeEntryFormControlName.StartDate" matStartDate placeholder="Start date">
+      <input [formControlName]="timeEntryFormControlName.EndDate" matEndDate placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Input</mat-label>
+    <input type="number" [formControlName]="timeEntryFormControlName.Hours" matInput>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Type</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let timeEntryType of timeEntryTypes" [value]="timeEntryType">
+        {{timeEntryType}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="onTimeEntryCreate()">Create Time Entry</button>
+</form>

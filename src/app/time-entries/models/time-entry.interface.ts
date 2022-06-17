@@ -1,3 +1,5 @@
+import {TimeEntryType} from './time-entry-type.enum';
+
 export interface TimeEntry {
   Id: number,
   UserId: number,
@@ -5,5 +7,5 @@ export interface TimeEntry {
   Date: Date,
   Hours: number,
   Status: string,
-  Type: string
+  Type: TimeEntryType
 }

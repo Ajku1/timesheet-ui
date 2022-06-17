@@ -1,4 +1,5 @@
 export enum TimeEntryFormControlName {
-  Date = 'Date',
+  StartDate = 'StartDate',
+  EndDate = 'EndDate',
   Hours = 'Hours'
 }
