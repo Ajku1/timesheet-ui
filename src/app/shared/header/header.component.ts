@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Route} from '../../route.enum';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {take} from 'rxjs/operators';
+import {take, takeUntil} from 'rxjs/operators';
 import {UserService} from '../services/user.service';
 import {Subject} from 'rxjs';
 import {UserModel} from '../models/user.model.interface';
@@ -21,6 +21,7 @@ export class HeaderComponent implements OnDestroy {
               private readonly httpClient: HttpClient,
               private readonly userService: UserService) {
     this.userService.user$
+      .pipe(takeUntil(this.componentDestroyed))
       .subscribe({
         next: (user: UserModel | null) => {
           this.user = user;
@@ -56,6 +57,7 @@ export class HeaderComponent implements OnDestroy {
       .subscribe({
         next: () => {
           this.userService.logoutUser();
+          this.router.navigate([Route.Login]);
         }
       });
   }

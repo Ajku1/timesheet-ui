@@ -31,12 +31,12 @@ export class TimeEntryComponent {
     );
   }
 
-
   onTimeEntryCreate(): void {
     const loggedInUser = this.userService.getLoggedInUser();
     this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}`, {
       ...this.formGroup.value,
       UserId: loggedInUser.id,
+      UserName: loggedInUser.name,
       ManagerId: loggedInUser.managerId
     })
       .pipe(take(1))

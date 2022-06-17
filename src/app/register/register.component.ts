@@ -6,6 +6,8 @@ import {environment} from '../../environments/environment';
 import {RegisterFormControlName} from './models/register-form-control-name-enum';
 import {Router} from '@angular/router';
 import {Route} from '../route.enum';
+import {UserService} from '../shared/services/user.service';
+import {UserModel} from '../shared/models/user.model.interface';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +21,8 @@ export class RegisterComponent implements OnInit {
   users: { name: string, id: string }[] = [];
 
   constructor(private readonly httpClient: HttpClient,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly userService: UserService) {
     this.formGroup = new FormGroup({
       [RegisterFormControlName.Name]:
         new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)]),
@@ -46,10 +49,11 @@ export class RegisterComponent implements OnInit {
       this.error = 'Form input is invalid.';
       return;
     }
-    this.httpClient.post(`${environment.backendUrl}/register`, this.formGroup.value)
+    this.httpClient.post<UserModel>(`${environment.backendUrl}/register`, this.formGroup.value)
       .pipe(take(1))
       .subscribe({
-        next: () => {
+        next: (registeredUser: UserModel) => {
+          this.userService.loginUser(registeredUser);
           this.router.navigate([Route.TimeEntries]);
         },
         error: (error: HttpErrorResponse) => {

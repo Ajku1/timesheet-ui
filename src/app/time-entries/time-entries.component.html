@@ -1,24 +1,37 @@
 <table>
   <tr>
-    <th>Date</th>
+    <th>Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
     <th>Hours</th>
     <th>Status</th>
     <th>Type</th>
-    <th>Approve</th>
-    <th>Reject</th>
+    <th>Action</th>
   </tr>
   <tr *ngFor="let timeEntry of timeEntries">
-    <th>{{timeEntry.Date | date}}</th>
-    <th>{{timeEntry.Hours}}</th>
-    <th>{{timeEntry.Status}}</th>
-    <th>{{timeEntry.Type}}</th>
-    <ng-container *ngIf="timeEntry.Status === 'PENDING'">
-      <th>
-        <button (click)="onTimeEntryActionClick(timeEntry.Id, true)">Approve</button>
-      </th>
-      <th>
-        <button (click)="onTimeEntryActionClick(timeEntry.Id, false)">Reject</button>
-      </th>
+    <th>{{timeEntry.userName}}</th>
+    <th>{{timeEntry.startDate | date}}</th>
+    <th>{{timeEntry.endDate | date}}</th>
+    <th>{{timeEntry.hours}}</th>
+    <th>{{timeEntry.status}}</th>
+    <th>{{timeEntry.type}}</th>
+    <ng-container *ngIf="user?.id === timeEntry.managerId; else notManager">
+      <ng-container *ngIf="timeEntry.status === timeEntryStatus.Pending; else completed">
+        <th class="action-buttons">
+          <button mat-raised-button color="primary" (click)="onTimeEntryActionClick(timeEntry.id, true)">Approve</button>
+          <button mat-raised-button color="primary" (click)="onTimeEntryActionClick(timeEntry.id, false)">Reject</button>
+        </th>
+      </ng-container>
     </ng-container>
+    <ng-template #notManager>
+      <ng-container *ngIf="timeEntry.status === timeEntryStatus.Pending; else completed">
+        <th>Pending Manager Review</th>
+      </ng-container>
+    </ng-template>
+
   </tr>
 </table>
+
+<ng-template #completed>
+  <th>Completed</th>
+</ng-template>

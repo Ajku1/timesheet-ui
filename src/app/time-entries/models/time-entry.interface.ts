@@ -1,11 +1,13 @@
 import {TimeEntryType} from './time-entry-type.enum';
 
 export interface TimeEntry {
-  Id: number,
-  UserId: number,
-  ManagerId: number,
-  Date: Date,
-  Hours: number,
-  Status: string,
-  Type: TimeEntryType
+  id: number,
+  userId: string,
+  userName: string,
+  managerId: string,
+  startDate: Date,
+  endDate: Date,
+  hours: number,
+  status: string,
+  type: TimeEntryType
 }

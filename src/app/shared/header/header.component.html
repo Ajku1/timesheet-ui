@@ -11,7 +11,7 @@
       <button mat-raised-button color="primary" (click)="onRegisterButtonClick()">Register</button>
     </ng-container>
     <ng-container *ngIf="user">
-      <div>You are logged in as: {{user.name}}</div>
+      <div class="logged-in-user-message">You are logged in as: {{user.name}}</div>
       <button mat-raised-button color="primary" (click)="onLogOutButtonClick()">Log Out</button>
     </ng-container>
   </div>

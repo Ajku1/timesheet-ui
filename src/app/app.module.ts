@@ -12,16 +12,22 @@ import {CommonModule} from '@angular/common';
 import {RegisterComponent} from './register/register.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {FooterComponent} from './shared/footer/footer.component';
-import { TimeEntryComponent } from './time-entries/time-entry/time-entry.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {TimeEntryComponent} from './time-entries/time-entry/time-entry.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import {AuthenticationGuard} from './shared/guards/authentication.guard';
 
 export const appStates: Routes = [
+  {
+    path: '',
+    component: TimeEntriesComponent,
+    canActivate: [AuthenticationGuard]
+  },
   {
     path: '',
     component: LoginComponent
@@ -36,11 +42,13 @@ export const appStates: Routes = [
   },
   {
     path: Route.TimeEntry,
-    component: TimeEntryComponent
+    component: TimeEntryComponent,
+    canActivate: [AuthenticationGuard]
   },
   {
     path: Route.TimeEntries,
-    component: TimeEntriesComponent
+    component: TimeEntriesComponent,
+    canActivate: [AuthenticationGuard]
   }
 ];
 
