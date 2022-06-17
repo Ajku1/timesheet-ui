@@ -6,6 +6,8 @@ import {take} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {Route} from '../route.enum';
 import {LoginFormControlName} from './models/login-form-control-name-enum';
+import {UserModel} from '../shared/models/user.model.interface';
+import {UserService} from '../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,8 @@ export class LoginComponent {
   error?: string;
 
   constructor(private readonly httpClient: HttpClient,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly userService: UserService) {
     this.formGroup = new FormGroup({
       [LoginFormControlName.Username]: new FormControl<string | null>(null, [Validators.required]),
       [LoginFormControlName.Password]: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)])
@@ -30,11 +33,12 @@ export class LoginComponent {
       this.error = 'Form input is invalid.';
       return;
     }
-    this.httpClient.post(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
+    this.httpClient.post<UserModel>(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
       .pipe(take(1))
       .subscribe({
-        next: () => {
+        next: (loggedInUser: UserModel) => {
           this.router.navigate([Route.TimeEntries]);
+          this.userService.loginUser(loggedInUser);
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 401) {

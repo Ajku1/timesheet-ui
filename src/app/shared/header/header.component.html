@@ -3,12 +3,16 @@
     <div class="header__left--element" (click)="onHeaderClick()">Timesheets</div>
   </div>
   <div class="header__middle">
-    <button (click)="onNewTimeEntryButtonClick()">New Time Entry</button>
+    <button *ngIf="user?.managerId" mat-raised-button color="primary" (click)="onNewTimeEntryButtonClick()">New Time Entry</button>
   </div>
   <div class="header__right">
-    <button class="header__right--element" id="index__loginButton" (click)="onLoginButtonClick()">Login</button>
-    <button class="header__right--element" id="index__registerButton" (click)="onRegisterButtonClick()">Register
-    </button>
-    <button class="header__right--element" id="index__logOutButton" (click)="onLogOutButtonClick()">Log Out</button>
+    <ng-container *ngIf="!user">
+      <button mat-raised-button color="primary" (click)="onLoginButtonClick()">Login</button>
+      <button mat-raised-button color="primary" (click)="onRegisterButtonClick()">Register</button>
+    </ng-container>
+    <ng-container *ngIf="user">
+      <div>You are logged in as: {{user.name}}</div>
+      <button mat-raised-button color="primary" (click)="onLogOutButtonClick()">Log Out</button>
+    </ng-container>
   </div>
 </header>

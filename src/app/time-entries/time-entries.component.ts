@@ -4,7 +4,8 @@ import {TimeEntry} from './models/time-entry.interface';
 import {environment} from '../../environments/environment';
 import {Route} from '../route.enum';
 import {take} from 'rxjs/operators';
-import {TimeEntryType} from './models/time-entry-type.enum';
+import {UserService} from '../shared/services/user.service';
+import {UserModel} from '../shared/models/user.model.interface';
 
 @Component({
   selector: 'app-time-entries',
@@ -12,61 +13,29 @@ import {TimeEntryType} from './models/time-entry-type.enum';
   styleUrls: ['./time-entries.component.css']
 })
 export class TimeEntriesComponent implements OnInit {
-  timeEntries: TimeEntry[] = [
-    {
-      Id: 5,
-      UserId: 2,
-      ManagerId: 3,
-      Date: new Date(),
-      Hours: 5,
-      Status: 'PENDING',
-      Type: TimeEntryType.Work
-    },
-    {
-      Id: 5,
-      UserId: 2,
-      ManagerId: 3,
-      Date: new Date(),
-      Hours: 5,
-      Status: 'PENDING',
-      Type: TimeEntryType.StudyBreak
-    },
-    {
-      Id: 5,
-      UserId: 2,
-      ManagerId: 3,
-      Date: new Date(),
-      Hours: 5,
-      Status: 'APPROVED',
-      Type: TimeEntryType.StudyBreak
-    },
-    {
-      Id: 5,
-      UserId: 2,
-      ManagerId: 3,
-      Date: new Date(),
-      Hours: 5,
-      Status: 'APPROVED',
-      Type: TimeEntryType.Holiday
-    }
-  ];
+  timeEntries: TimeEntry[] = [];
 
-  constructor(private readonly httpClient: HttpClient) {
+  constructor(private readonly httpClient: HttpClient,
+              private readonly userService: UserService) {
   }
 
   ngOnInit(): void {
-    // this.httpClient.get<TimeEntry[]>(`${environment.backendUrl}/${Route.TimeEntries}`)
-    //   .pipe(take(1))
-    //   .subscribe({
-    //     next: (timeEntries: TimeEntry[]) => {
-    //       this.timeEntries = timeEntries;
-    //     }
-    //   });
+    this.userService.user$.subscribe((loggedInUser: UserModel | null) => {
+      this.httpClient.get<TimeEntry[]>(`${environment.backendUrl}/${Route.TimeEntries}/pending-review/${loggedInUser!.id}`)
+        .pipe(take(1))
+        .subscribe({
+          next: (timeEntries: TimeEntry[]) => {
+            this.timeEntries = timeEntries;
+          }
+        });
+    });
+
   }
 
   onTimeEntryActionClick(timeEntryId: number, approved: boolean): void {
     const body = {TimeEntryId: timeEntryId, Approved: approved};
-    this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}/pending-review}`, body)
+    const loggedInUser = this.userService.getLoggedInUser();
+    this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}/pending-review`, body)
       .pipe(take(1))
       .subscribe({
         next: () => {

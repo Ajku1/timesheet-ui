@@ -7,6 +7,7 @@ import {Route} from '../../route.enum';
 import {take} from 'rxjs/operators';
 import {TimeEntryType} from '../models/time-entry-type.enum';
 import {Router} from '@angular/router';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-time-entry',
@@ -19,7 +20,8 @@ export class TimeEntryComponent {
   timeEntryTypes: string[] = Object.keys(TimeEntryType);
 
   constructor(private readonly httpClient: HttpClient,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly userService: UserService) {
     this.formGroup = new FormGroup(
       {
         [TimeEntryFormControlName.StartDate]: new FormControl<Date>(new Date()),
@@ -31,8 +33,12 @@ export class TimeEntryComponent {
 
 
   onTimeEntryCreate(): void {
-    console.log(this.formGroup.value);
-    this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}`, this.formGroup.value)
+    const loggedInUser = this.userService.getLoggedInUser();
+    this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}`, {
+      ...this.formGroup.value,
+      UserId: loggedInUser.id,
+      ManagerId: loggedInUser.managerId
+    })
       .pipe(take(1))
       .subscribe({
         next: () => {
