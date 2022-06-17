@@ -9,22 +9,5 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  border: 5px solid lightgray;
   padding: 1rem;
-}
-
-.register-form__element {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem;
-}
-
-.register-form__buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.register-form__buttons--button {
-  margin: 1rem;
 }

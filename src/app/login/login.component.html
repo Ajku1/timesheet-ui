@@ -9,9 +9,7 @@
     <input type="password" [formControlName]="loginFormControlName.Password" matInput>
   </mat-form-field>
 
-  <div class="login-form__buttons">
-    <input class="login-form__buttons--button" type="submit" (click)="login()">
-  </div>
+  <button mat-raised-button color="primary" (click)="login()">Login</button>
 
   <div class="error" *ngIf="error">
     {{error}}

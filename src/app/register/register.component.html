@@ -1,28 +1,34 @@
-<form class="register-form" name="registerForm" action="login.html" onsubmit="return onRegisterFormSubmit()">
-  <div class="register-form__element">
-    <label for="email">Email:</label>
-    <input class="box" type="text" name="email" id="email" value="" placeholder="Enter email">
-  </div>
+<form [formGroup]="formGroup" class="register-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="text" [formControlName]="registerFormControlName.Name" matInput>
+  </mat-form-field>
 
-  <div class="register-form__element">
-    <label for="password">Password:</label>
-    <input class="box" type="password" name="password" id="password" value="" placeholder="Enter your password">
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Manager</mat-label>
+    <mat-select [formControlName]="registerFormControlName.ManagerId">
+      <mat-option *ngFor="let user of users" [value]="user.id">
+        {{user.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="register-form__element">
-    <label for="firstName">First Name:</label>
-    <input class="box" type="text" name="firstName" id="firstName" value=""
-           placeholder="Enter your first name">
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="text" [formControlName]="registerFormControlName.Email" matInput>
+  </mat-form-field>
 
-  <div class="register-form__element">
-    <label for="lastName">Last Name:</label>
-    <input class="box" type="text" name="lastName" id="lastName" value="" placeholder="Enter your last name">
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input type="text" [formControlName]="registerFormControlName.Username" matInput>
+  </mat-form-field>
 
-  <div class="register-form__buttons">
-    <input class="register-form__buttons--button" type="submit" value="Submit">
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" [formControlName]="registerFormControlName.Password" matInput>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="register()">Register</button>
 
   <div class="error" *ngIf="error">
     {{error}}
