@@ -1,1 +1,13 @@
-<p>time-entry-types works!</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Action</th>
+  </tr>
+  <tr *ngFor="let timeEntryType of timeEntryTypes">
+    <th>{{timeEntryType.name}}</th>
+    <th>
+      <button mat-raised-button color="primary" (click)="onTimeEntryTypeEditClick(timeEntryType.id)">Edit</button>
+    </th>
+
+  </tr>
+</table>

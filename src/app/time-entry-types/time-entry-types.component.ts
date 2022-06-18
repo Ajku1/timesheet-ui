@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Route} from '../route.enum';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {TimeEntryType} from '../shared/models/time-entry-type.interface';
+import {environment} from '../../environments/environment';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-entry-types',
@@ -6,10 +12,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-entry-types.component.css']
 })
 export class TimeEntryTypesComponent implements OnInit {
+  timeEntryTypes: TimeEntryType[] = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private readonly httpClient: HttpClient,
+              private readonly router: Router) {
   }
 
+  ngOnInit(): void {
+    this.httpClient.get<TimeEntryType[]>(`${environment.backendUrl}/${Route.TimeEntryTypes}`)
+      .pipe(take(1))
+      .subscribe({
+        next: (timeEntryTypes: TimeEntryType[]) => {
+          this.timeEntryTypes = timeEntryTypes;
+        }
+      });
+  }
+
+  onTimeEntryTypeEditClick(id: number): void {
+    this.router.navigate([Route.TimeEntryType, id], {state: {id}});
+  }
 }

@@ -3,5 +3,6 @@ export enum Route {
   Register = 'register',
   TimeEntry = 'time-entry',
   TimeEntries = 'time-entries',
-  TimeEntryTypes = 'time-entry-types'
+  TimeEntryType = 'time-entry-type',
+  TimeEntryTypes = 'time-entry-types',
 }
