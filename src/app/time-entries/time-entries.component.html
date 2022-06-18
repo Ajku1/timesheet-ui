@@ -9,7 +9,7 @@
     <th>Action</th>
   </tr>
   <tr *ngFor="let timeEntry of timeEntries">
-    <th>{{timeEntry.userName}}</th>
+    <th>{{timeEntry.user.name}}</th>
     <th>{{timeEntry.startDate | date}}</th>
     <th>{{timeEntry.endDate | date}}</th>
     <th>{{timeEntry.hours}}</th>

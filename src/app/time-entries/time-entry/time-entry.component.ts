@@ -36,7 +36,6 @@ export class TimeEntryComponent {
     this.httpClient.post(`${environment.backendUrl}/${Route.TimeEntries}`, {
       ...this.formGroup.value,
       UserId: loggedInUser.id,
-      UserName: loggedInUser.name,
       ManagerId: loggedInUser.managerId
     })
       .pipe(take(1))
