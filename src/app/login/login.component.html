@@ -11,4 +11,8 @@
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="login()">Login</button>
+
+  <div class="error" *ngIf="error">
+    {{error}}
+  </div>
 </form>

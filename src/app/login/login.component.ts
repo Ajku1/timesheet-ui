@@ -30,7 +30,6 @@ export class LoginComponent {
 
   login(): void {
     if (this.formGroup.invalid) {
-      this.error = 'Form input is invalid.';
       return;
     }
     this.httpClient.post<UserModel>(`${environment.backendUrl}/${Route.Login}`, this.formGroup.value)
