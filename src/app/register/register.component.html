@@ -2,6 +2,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
     <input type="text" [formControlName]="registerFormControlName.Name" matInput>
+    <mat-error *ngIf="formGroup.controls[registerFormControlName.Name].invalid">Name must be at least 8 symbols.</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -26,6 +27,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
     <input type="password" [formControlName]="registerFormControlName.Password" matInput>
+    <mat-error *ngIf="formGroup.controls[registerFormControlName.Password].invalid">Password must be at least 6 symbols.</mat-error>
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="register()">Register</button>

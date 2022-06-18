@@ -11,3 +11,7 @@
   align-self: center;
   padding: 1rem;
 }
+
+mat-form-field, button {
+  margin: 0.5rem;
+}

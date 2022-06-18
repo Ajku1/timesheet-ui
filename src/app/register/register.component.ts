@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       [RegisterFormControlName.Email]: new FormControl<string | null>(null, Validators.required),
       [RegisterFormControlName.Username]: new FormControl<string | null>(null, Validators.required),
       [RegisterFormControlName.Password]:
-        new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)])
+        new FormControl<string | null>(null, [Validators.required, Validators.minLength(6)])
     });
   }
 
@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     if (this.formGroup.invalid) {
-      this.error = 'Form input is invalid.';
       return;
     }
     this.httpClient.post<UserModel>(`${environment.backendUrl}/register`, this.formGroup.value)
@@ -58,7 +57,7 @@ export class RegisterComponent implements OnInit {
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 409) {
-            this.error = 'Email is already in use. Try another one.';
+            this.error = 'Email is already in use.';
           }
         }
       });

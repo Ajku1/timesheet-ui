@@ -20,10 +20,6 @@ input {
   padding: 1rem;
 }
 
-.error {
-  color: red;
-}
-
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

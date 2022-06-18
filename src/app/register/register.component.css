@@ -11,3 +11,11 @@
   align-self: center;
   padding: 1rem;
 }
+
+.error {
+  color: red;
+}
+
+mat-form-field, button {
+  margin: 0.5rem;
+}

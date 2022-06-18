@@ -7,11 +7,8 @@
   <mat-form-field appearance="fill">
     <mat-label>Password</mat-label>
     <input type="password" [formControlName]="loginFormControlName.Password" matInput>
+    <mat-error *ngIf="formGroup.controls[loginFormControlName.Password].invalid">Password must be at least 6 symbols.</mat-error>
   </mat-form-field>
 
   <button mat-raised-button color="primary" (click)="login()">Login</button>
-
-  <div class="error" *ngIf="error">
-    {{error}}
-  </div>
 </form>
