@@ -6,7 +6,6 @@ import {Route} from '../route.enum';
 import {take, takeUntil} from 'rxjs/operators';
 import {UserService} from '../shared/services/user.service';
 import {UserModel} from '../shared/models/user.model.interface';
-import {TimeEntryType} from './models/time-entry-type.enum';
 import {Subject} from 'rxjs';
 import {TimeEntryStatus} from './models/time-entry-status.enum';
 
@@ -24,11 +23,6 @@ export class TimeEntriesComponent implements OnInit, OnDestroy {
     [0, TimeEntryStatus.Pending],
     [1, TimeEntryStatus.Denied],
     [2, TimeEntryStatus.Approved]
-  ]);
-  typeCodes: Map<number, TimeEntryType> = new Map<number, TimeEntryType>([
-    [0, TimeEntryType.Work],
-    [1, TimeEntryType.Holiday],
-    [2, TimeEntryType.StudyBreak]
   ]);
 
   constructor(private readonly httpClient: HttpClient,
@@ -72,7 +66,6 @@ export class TimeEntriesComponent implements OnInit, OnDestroy {
 
   private mapEntry(timeEntry: TimeEntry): TimeEntry {
     const status = this.statusCodes.get(timeEntry.status as unknown as number)!;
-    const type = this.typeCodes.get(timeEntry.type as unknown as number)!;
-    return {...timeEntry, status, type};
+    return {...timeEntry, status};
   }
 }

@@ -5,9 +5,9 @@ import {TimeEntryFormControlName} from './models/time-entry-form-control-name-en
 import {environment} from '../../../environments/environment';
 import {Route} from '../../route.enum';
 import {take} from 'rxjs/operators';
-import {TimeEntryType} from '../models/time-entry-type.enum';
 import {Router} from '@angular/router';
 import {UserService} from '../../shared/services/user.service';
+import {TimeEntryType} from '../../shared/models/time-entry-type.interface';
 
 @Component({
   selector: 'app-time-entry',
@@ -17,7 +17,7 @@ import {UserService} from '../../shared/services/user.service';
 export class TimeEntryComponent {
   readonly timeEntryFormControlName: typeof TimeEntryFormControlName = TimeEntryFormControlName;
   formGroup: FormGroup;
-  timeEntryTypes: string[] = Object.keys(TimeEntryType);
+  timeEntryTypes: TimeEntryType[] = [];
 
   constructor(private readonly httpClient: HttpClient,
               private readonly router: Router,
@@ -26,9 +26,18 @@ export class TimeEntryComponent {
       {
         [TimeEntryFormControlName.StartDate]: new FormControl<Date>(new Date()),
         [TimeEntryFormControlName.EndDate]: new FormControl<Date>(new Date()),
-        [TimeEntryFormControlName.Hours]: new FormControl<number>(0)
+        [TimeEntryFormControlName.Hours]: new FormControl<number>(0),
+        [TimeEntryFormControlName.Type]: new FormControl<TimeEntryType | null>(null)
       }
     );
+    this.httpClient.get<TimeEntryType[]>(`${environment.backendUrl}/time-entry-types`)
+      .pipe(take(1))
+      .subscribe({
+        next: (timeEntryTypes: TimeEntryType[]) => {
+          console.log(timeEntryTypes);
+          this.timeEntryTypes = timeEntryTypes;
+        }
+      });
   }
 
   onTimeEntryCreate(): void {

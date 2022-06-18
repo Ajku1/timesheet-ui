@@ -21,6 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {AuthenticationGuard} from './shared/guards/authentication.guard';
+import {TimeEntryTypesComponent} from './time-entry-types/time-entry-types.component';
+import {AdministratorGuard} from './shared/guards/administrator.guard';
 
 export const appStates: Routes = [
   {
@@ -49,6 +51,11 @@ export const appStates: Routes = [
     path: Route.TimeEntries,
     component: TimeEntriesComponent,
     canActivate: [AuthenticationGuard]
+  },
+  {
+    path: Route.TimeEntryTypes,
+    component: TimeEntryTypesComponent,
+    canActivate: [AdministratorGuard]
   }
 ];
 
@@ -61,7 +68,8 @@ export const appStates: Routes = [
     HeaderComponent,
     FooterComponent,
     TimeEntriesComponent,
-    TimeEntryComponent
+    TimeEntryComponent,
+    TimeEntryTypesComponent
   ],
   imports: [
     CommonModule,

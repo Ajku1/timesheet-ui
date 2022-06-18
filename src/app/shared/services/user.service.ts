@@ -11,6 +11,10 @@ export class UserService {
     return this.userSubject.value !== null;
   }
 
+  isLoggedInUserAdministrator(): boolean {
+    return this.userSubject.value?.role === 1;
+  }
+
   getLoggedInUser(): UserModel {
     if (this.userSubject.value == null) {
       throw new Error('There is no user logged in.');

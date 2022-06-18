@@ -16,9 +16,9 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Type</mat-label>
-    <mat-select>
+    <mat-select [formControlName]="timeEntryFormControlName.Type">
       <mat-option *ngFor="let timeEntryType of timeEntryTypes" [value]="timeEntryType">
-        {{timeEntryType}}
+        {{timeEntryType.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>`

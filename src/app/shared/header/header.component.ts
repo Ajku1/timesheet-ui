@@ -34,24 +34,28 @@ export class HeaderComponent implements OnDestroy {
     this.componentDestroyed.complete();
   }
 
-  onHeaderClick() {
+  onHeaderClick(): void {
     this.router.navigate([Route.TimeEntries]);
   }
 
-  onNewTimeEntryButtonClick() {
+  onNewTimeEntryButtonClick(): void {
     this.router.navigate([Route.TimeEntry]);
   }
 
-  onLoginButtonClick() {
+  goToTimeEntryTypes(): void {
+    this.router.navigate([Route.TimeEntryTypes]);
+  }
+
+  onLoginButtonClick(): void {
     this.router.navigate([Route.Login]);
   }
 
-  onRegisterButtonClick() {
+  onRegisterButtonClick(): void {
     this.router.navigate([Route.Register]);
 
   }
 
-  onLogOutButtonClick() {
+  onLogOutButtonClick(): void {
     this.httpClient.get(`${environment.backendUrl}/logout`)
       .pipe(take(1))
       .subscribe({

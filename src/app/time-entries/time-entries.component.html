@@ -14,7 +14,7 @@
     <th>{{timeEntry.endDate | date}}</th>
     <th>{{timeEntry.hours}}</th>
     <th>{{timeEntry.status}}</th>
-    <th>{{timeEntry.type}}</th>
+    <th>{{timeEntry.type.name}}</th>
     <ng-container *ngIf="user?.id === timeEntry.managerId; else notManager">
       <ng-container *ngIf="timeEntry.status === timeEntryStatus.Pending; else completed">
         <th class="action-buttons">
