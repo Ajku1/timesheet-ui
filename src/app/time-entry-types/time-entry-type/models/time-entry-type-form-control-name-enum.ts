@@ -1,3 +1,3 @@
 export enum TimeEntryTypeFormControlName {
-  Name = 'Name'
+  Name = 'name'
 }

@@ -34,7 +34,6 @@ export class TimeEntryComponent {
       .pipe(take(1))
       .subscribe({
         next: (timeEntryTypes: TimeEntryType[]) => {
-          console.log(timeEntryTypes);
           this.timeEntryTypes = timeEntryTypes;
         }
       });

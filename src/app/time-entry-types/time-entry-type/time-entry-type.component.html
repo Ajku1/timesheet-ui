@@ -1,9 +1,7 @@
 <form [formGroup]="formGroup">
-
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
     <input type="text" [formControlName]="timeEntryTypeFormControlName.Name" matInput>
   </mat-form-field>
-
-  <button mat-raised-button color="primary" (click)="onTimeEntryTypeUpdateClick()">Update Time Entry Type</button>
+  <button mat-raised-button color="primary" (click)="onTimeEntryTypeSubmitClick()">Submit</button>
 </form>

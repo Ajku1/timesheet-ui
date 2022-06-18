@@ -4,7 +4,8 @@
   </div>
   <div class="header__middle">
     <button *ngIf="user?.managerId" mat-raised-button color="primary" (click)="onNewTimeEntryButtonClick()">New Time Entry</button>
-    <button *ngIf="user?.role === 1" mat-raised-button color="primary" (click)="goToTimeEntryTypes()">Time Entry Types</button>
+    <button *ngIf="user?.role === 1 && !isTimeEntriesLoaded" mat-raised-button color="primary" (click)="onTimeEntryTypesClick()">Time Entry Types</button>
+    <button *ngIf="user?.role === 1 && isTimeEntriesLoaded" mat-raised-button color="primary" (click)="onCreateTimeEntryTypeClick()">Create New</button>
   </div>
   <div class="header__right">
     <ng-container *ngIf="!user">

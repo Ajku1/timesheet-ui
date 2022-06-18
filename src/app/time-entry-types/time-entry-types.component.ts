@@ -31,4 +31,14 @@ export class TimeEntryTypesComponent implements OnInit {
   onTimeEntryTypeEditClick(id: number): void {
     this.router.navigate([Route.TimeEntryType, id], {state: {id}});
   }
+
+  onTimeEntryTypeDeleteClick(id: number): void {
+    this.httpClient.delete(`${environment.backendUrl}/${Route.TimeEntryTypes}/${id}`)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.timeEntryTypes = this.timeEntryTypes.filter(timeEntryType => timeEntryType.id !== id);
+        }
+      });
+  }
 }

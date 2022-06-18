@@ -23,7 +23,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {AuthenticationGuard} from './shared/guards/authentication.guard';
 import {TimeEntryTypesComponent} from './time-entry-types/time-entry-types.component';
 import {AdministratorGuard} from './shared/guards/administrator.guard';
-import { TimeEntryTypeComponent } from './time-entry-types/time-entry-type/time-entry-type.component';
+import {TimeEntryTypeComponent} from './time-entry-types/time-entry-type/time-entry-type.component';
 
 export const appStates: Routes = [
   {
@@ -56,6 +56,11 @@ export const appStates: Routes = [
   {
     path: Route.TimeEntryTypes,
     component: TimeEntryTypesComponent,
+    canActivate: [AdministratorGuard]
+  },
+  {
+    path: Route.TimeEntryType,
+    component: TimeEntryTypeComponent,
     canActivate: [AdministratorGuard]
   },
   {

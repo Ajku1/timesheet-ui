@@ -1,9 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
+import {Event, NavigationEnd, Router} from '@angular/router';
 import {Route} from '../../route.enum';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {take, takeUntil} from 'rxjs/operators';
+import {filter, take, takeUntil} from 'rxjs/operators';
 import {UserService} from '../services/user.service';
 import {Subject} from 'rxjs';
 import {UserModel} from '../models/user.model.interface';
@@ -16,10 +16,19 @@ import {UserModel} from '../models/user.model.interface';
 export class HeaderComponent implements OnDestroy {
   user: UserModel | null = null;
   componentDestroyed: Subject<void> = new Subject<void>();
+  isTimeEntriesLoaded: boolean = false;
 
   constructor(private readonly router: Router,
               private readonly httpClient: HttpClient,
               private readonly userService: UserService) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe({
+        next: (event: Event) => {
+          const navigationEndEvent: NavigationEnd = event as NavigationEnd;
+          this.isTimeEntriesLoaded = navigationEndEvent.url === `/${Route.TimeEntryTypes}`;
+        }
+      });
     this.userService.user$
       .pipe(takeUntil(this.componentDestroyed))
       .subscribe({
@@ -42,8 +51,12 @@ export class HeaderComponent implements OnDestroy {
     this.router.navigate([Route.TimeEntry]);
   }
 
-  goToTimeEntryTypes(): void {
+  onTimeEntryTypesClick(): void {
     this.router.navigate([Route.TimeEntryTypes]);
+  }
+
+  onCreateTimeEntryTypeClick(): void {
+    this.router.navigate([Route.TimeEntryType]);
   }
 
   onLoginButtonClick(): void {

@@ -5,9 +5,9 @@
   </tr>
   <tr *ngFor="let timeEntryType of timeEntryTypes">
     <th>{{timeEntryType.name}}</th>
-    <th>
+    <th class="action-buttons">
       <button mat-raised-button color="primary" (click)="onTimeEntryTypeEditClick(timeEntryType.id)">Edit</button>
+      <button mat-raised-button color="primary" (click)="onTimeEntryTypeDeleteClick(timeEntryType.id)">Delete</button>
     </th>
-
   </tr>
 </table>
