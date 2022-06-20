@@ -24,7 +24,7 @@ export class LoginComponent {
               private readonly userService: UserService) {
     this.formGroup = new FormGroup({
       [LoginFormControlName.Username]: new FormControl<string | null>(null, [Validators.required]),
-      [LoginFormControlName.Password]: new FormControl<string | null>(null, [Validators.required, Validators.minLength(8)])
+      [LoginFormControlName.Password]: new FormControl<string | null>(null, [Validators.required, Validators.minLength(6)])
     });
   }
 

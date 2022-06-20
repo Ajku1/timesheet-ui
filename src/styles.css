@@ -44,3 +44,7 @@ form {
 .error {
   color: red;
 }
+
+mat-form-field {
+  margin: 0.5rem;
+}

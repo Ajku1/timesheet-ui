@@ -12,6 +12,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Hours</mat-label>
     <input type="number" [formControlName]="timeEntryFormControlName.Hours" matInput>
+    <mat-error *ngIf="formGroup.controls[timeEntryFormControlName.Hours].invalid">You should select at least 1 hour.</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill">
@@ -21,6 +22,7 @@
         {{timeEntryType.name}}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="formGroup.controls[timeEntryFormControlName.Type].invalid">You should select a type.</mat-error>
   </mat-form-field>`
 
   <button mat-raised-button color="primary" (click)="onTimeEntryCreate()">Create Time Entry</button>

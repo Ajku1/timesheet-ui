@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TimeEntryTypeFormControlName} from './models/time-entry-type-form-control-name-enum';
 import {environment} from '../../../environments/environment';
 import {Route} from '../../route.enum';
@@ -23,7 +23,7 @@ export class TimeEntryTypeComponent {
               private readonly router: Router) {
     this.id = this.router.getCurrentNavigation()?.extras.state?.['id'];
     this.formGroup = new FormGroup({
-      [TimeEntryTypeFormControlName.Name]: new FormControl<string | null>(null)
+      [TimeEntryTypeFormControlName.Name]: new FormControl<string | null>(null, Validators.required)
     });
     if (this.id) {
       this.httpClient.get<TimeEntryType>(`${environment.backendUrl}/${Route.TimeEntryTypes}/${this.id}`)
@@ -37,6 +37,9 @@ export class TimeEntryTypeComponent {
   }
 
   onTimeEntryTypeSubmitClick(): void {
+    if (this.formGroup.invalid) {
+      return;
+    }
     const timeEntryTypeSubmitObservable: Observable<TimeEntryType> = this.id === undefined ?
       this.httpClient.post<TimeEntryType>(`${environment.backendUrl}/${Route.TimeEntryTypes}`, this.formGroup.value) :
       this.httpClient.put<TimeEntryType>(`${environment.backendUrl}/${Route.TimeEntryTypes}/${this.id}`, this.formGroup.value);
